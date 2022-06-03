@@ -6,12 +6,13 @@ class Card extends React.Component {
   render() {
     return (
       <div className="card">
-        <p className="card-text">{this.props.shoe.name}</p>
-        <p className="card-text">{this.props.shoe.brand}</p>
-        <p className="card-text">{this.props.shoe.price}</p>
+        <p className="card-text">{this.props.food.name}</p>
+        <p className="card-text">{this.props.food.vegan}</p>
+        <p className="card-text">{this.props.food.whatisinit}</p>
+        <p className="card-text">{this.props.food.price}</p>
         <Link
           onClick={() => {
-            this.props.editShoe(this.props.shoe);
+            this.props.editFood(this.props.food);
           }}
           to="/form"
         >
@@ -19,8 +20,8 @@ class Card extends React.Component {
         </Link>
         <Button
           text="Delete"
-          onClick={this.props.deleteShoe}
-          id={this.props.shoe.id}
+          onClick={this.props.deleteFood}
+          id={this.props.food.id}
         />
       </div>
     );

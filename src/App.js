@@ -6,11 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import Form from "./components/Form/Form";
 import {} from "react-router-dom";
 function App() {
-  const initalShoe = { name: "", brand: "", price: 0 };
+  const initalFood = { name: "", vegan: false, whatisinit: "", price: 0 };
   let History = useHistory();
   const spinnerRef = useRef();
   const [data, setData] = useState([]);
-  const [shoe, setShoe] = useState(initalShoe);
+  const [food, setFood] = useState(initalFood);
   const [isEdit, setEdit] = useState(false);
   const getData = async () => {
     spinnerRef.current.classList.remove("hidden");
@@ -26,12 +26,12 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
-  const editShoe = async () => {
+  const editFood = async () => {
     spinnerRef.current.classList.remove("hidden");
     try {
-      await apiInstance.put(`/${shoe.id}`, shoe);
+      await apiInstance.put(`/${food.id}`, food);
       getData();
-      setShoe(initalShoe);
+      setFood(initalFood);
       setEdit(false);
     } catch (e) {
       console.error(e);
@@ -39,11 +39,11 @@ function App() {
       spinnerRef.current.classList.add("hidden");
     }
   };
-  const addShoe = async () => {
+  const addFood = async () => {
     spinnerRef.current.classList.remove("hidden");
     try {
-      await apiInstance.post("", shoe);
-      setShoe(initalShoe);
+      await apiInstance.post("", food);
+      setFood(initalFood);
       getData();
     } catch (e) {
       console.error(e);
@@ -51,7 +51,7 @@ function App() {
       spinnerRef.current.classList.add("hidden");
     }
   };
-  const deleteShoe = async (event) => {
+  const deleteFood = async (event) => {
     spinnerRef.current.classList.remove("hidden");
     try {
       await apiInstance.delete(`/${event.target.getAttribute("data-id")}`);
@@ -66,16 +66,16 @@ function App() {
     <div className="app-root">
       <Router history={History}>
         <Route path="/" exact>
-          <Link to="/form">Add Shoe</Link>
+          <Link to="/form">Add Food</Link>
           <div className="cards">
-            {data.map((shoe, i) => {
+            {data.map((food, i) => {
               return (
                 <Card
-                  shoe={shoe}
+                  food={food}
                   key={i}
-                  deleteShoe={deleteShoe}
-                  editShoe={(shoe) => {
-                    setShoe(shoe);
+                  deleteFood={deleteFood}
+                  editFood={(food) => {
+                    setFood(food);
                     setEdit(true);
                   }}
                 />
@@ -88,11 +88,11 @@ function App() {
             onSubmit={(e) => {
               e.preventDefault();
               History.push("/");
-              if (!isEdit) addShoe();
-              else editShoe();
+              if (!isEdit) addFood();
+              else editFood();
             }}
-            shoe={shoe}
-            setShoe={setShoe}
+            food={food}
+            setFood={setFood}
             isEdit={isEdit}
           />
         </Route>

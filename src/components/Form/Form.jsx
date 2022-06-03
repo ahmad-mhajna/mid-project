@@ -10,33 +10,34 @@ class Form extends React.Component {
         <Input
           label="Name"
           placeholder="Enter Name..."
-          value={this.props.shoe.name}
+          value={this.props.food.name}
           onChange={(event) => {
-            this.props.setShoe({
-              ...this.props.shoe,
+            this.props.setFood({
+              ...this.props.food,
               name: event.target.value,
             });
           }}
         />
         <Input
-          label="Brand"
-          placeholder="Enter Brand..."
-          value={this.props.shoe.brand}
+          type="checkbox"
+          label="vegan"
+          placeholder="Enter vegan..."
+          value={this.props.food.vegan}
           onChange={(event) => {
-            this.props.setShoe({
-              ...this.props.shoe,
-              brand: event.target.value,
+            this.props.setFood({
+              ...this.props.food,
+              vegan: event.target.value,
             });
           }}
         />
         <Input
           label="Price"
           placeholder="Enter Price..."
-          value={this.props.shoe.price}
+          value={this.props.food.price}
           type="number"
           onChange={(event) => {
-            this.props.setShoe({
-              ...this.props.shoe,
+            this.props.setFood({
+              ...this.props.food,
               price: +event.target.value,
             });
           }}
