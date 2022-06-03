@@ -5,18 +5,27 @@ import apiInstance from "./api/api";
 import { useEffect, useRef, useState } from "react";
 import Form from "./components/Form/Form";
 import {} from "react-router-dom";
+import Input from "./components/input/Input";
 function App() {
-  const initalFood = { name: "", vegan: false, whatisinit: "", price: 0 };
+  const initalFood = {
+    name: "",
+    isVegan: false,
+    ingredients: [],
+    price: 0,
+    img: "",
+  };
   let History = useHistory();
   const spinnerRef = useRef();
   const [data, setData] = useState([]);
   const [food, setFood] = useState(initalFood);
+  const [search, filterFood] = useState(data);
   const [isEdit, setEdit] = useState(false);
   const getData = async () => {
     spinnerRef.current.classList.remove("hidden");
     try {
       const response = await apiInstance.get("");
       setData(response.data);
+      filterFood(response.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -51,6 +60,13 @@ function App() {
       spinnerRef.current.classList.add("hidden");
     }
   };
+  const searchbar = (event) => {
+    const input = event.target.value;
+    const newSearch = data.filter((item) => {
+      return item.name.toLowerCase().includes(input.toLowerCase());
+    });
+    filterFood(newSearch);
+  };
   const deleteFood = async (event) => {
     spinnerRef.current.classList.remove("hidden");
     try {
@@ -67,8 +83,9 @@ function App() {
       <Router history={History}>
         <Route path="/" exact>
           <Link to="/form">Add Food</Link>
+          <Input onChange={searchbar} />
           <div className="cards">
-            {data.map((food, i) => {
+            {search.map((food, i) => {
               return (
                 <Card
                   food={food}

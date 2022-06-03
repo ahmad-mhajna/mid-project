@@ -20,13 +20,35 @@ class Form extends React.Component {
         />
         <Input
           type="checkbox"
-          label="vegan"
-          placeholder="Enter vegan..."
-          value={this.props.food.vegan}
+          label="isVegan"
+          placeholder="Enter is it vegan"
+          value={this.props.food.isVegan}
           onChange={(event) => {
             this.props.setFood({
               ...this.props.food,
-              vegan: event.target.value,
+              isVegan: event.target.value,
+            });
+          }}
+        />
+        <Input
+          label="ingredients"
+          placeholder="Enter ingredients..."
+          value={this.props.food.ingredients}
+          onChange={(event) => {
+            this.props.setFood({
+              ...this.props.food,
+              ingredients: [event.target.value],
+            });
+          }}
+        />
+        <Input
+          label="img"
+          placeholder="Enter img..."
+          value={this.props.food.img}
+          onChange={(event) => {
+            this.props.setFood({
+              ...this.props.food,
+              img: event.target.value,
             });
           }}
         />
