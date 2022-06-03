@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Form from "./components/Form/Form";
 import {} from "react-router-dom";
 import Input from "./components/input/Input";
+import Button from "./components/Button/Button";
 function App() {
   const initalFood = {
     name: "",
@@ -20,6 +21,10 @@ function App() {
   const [food, setFood] = useState(initalFood);
   const [search, filterFood] = useState(data);
   const [isEdit, setEdit] = useState(false);
+  const [sort, setsort] = useState("off");
+  const [isVegan, setvegan] = useState("off");
+  const [keywords, setKeywords] = useState("");
+
   const getData = async () => {
     spinnerRef.current.classList.remove("hidden");
     try {
@@ -35,6 +40,7 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
+
   const editFood = async () => {
     spinnerRef.current.classList.remove("hidden");
     try {
@@ -48,6 +54,7 @@ function App() {
       spinnerRef.current.classList.add("hidden");
     }
   };
+
   const addFood = async () => {
     spinnerRef.current.classList.remove("hidden");
     try {
@@ -60,12 +67,38 @@ function App() {
       spinnerRef.current.classList.add("hidden");
     }
   };
+  useEffect(() => {
+    let newArray = [...data];
+    newArray = sortByPrice(newArray);
+    newArray = isItVegan(newArray);
+    newArray = newArray.filter((food) => food.name.includes(keywords));
+    filterFood(newArray);
+  }, [sort, isVegan, keywords]);
   const searchbar = (event) => {
     const input = event.target.value;
-    const newSearch = data.filter((item) => {
-      return item.name.toLowerCase().includes(input.toLowerCase());
-    });
-    filterFood(newSearch);
+    setKeywords(input);
+  };
+  const sortByPrice = (arr) => {
+    let newarray = [...arr];
+    if (sort === "off") {
+      newarray.sort((a, b) => a.id - b.id);
+    } else if (sort === "low-high") {
+      newarray.sort((a, b) => a.price - b.price);
+    } else if (sort === "high-low") {
+      newarray.sort((a, b) => b.price - a.price);
+    }
+    return newarray;
+  };
+  const isItVegan = (arr) => {
+    let newarray = [];
+    if (isVegan === "off") {
+      newarray = arr.filter((food) => !food.isVegan);
+    } else if (isVegan === "on") {
+      newarray = arr.filter((food) => food.isVegan);
+    } else if (isVegan === "notVegan") {
+      return arr;
+    }
+    return newarray;
   };
   const deleteFood = async (event) => {
     spinnerRef.current.classList.remove("hidden");
@@ -83,7 +116,40 @@ function App() {
       <Router history={History}>
         <Route path="/" exact>
           <Link to="/form">Add Food</Link>
-          <Input onChange={searchbar} />
+          <Input label="search" onChange={searchbar} />
+          <Button
+            text={
+              sort === "off"
+                ? "sort : off"
+                : sort === "low-high"
+                ? "sort : low-high"
+                : "sort : high-low"
+            }
+            onClick={() => {
+              setsort(
+                sort === "off"
+                  ? "low-high"
+                  : sort === "low-high"
+                  ? "high-low"
+                  : "off"
+              );
+            }}
+          />
+          <Button
+            text={
+              isVegan === "off"
+                ? "off"
+                : isVegan === "on"
+                ? "vegan Food"
+                : "all"
+            }
+            onClick={() => {
+              setvegan(
+                isVegan === "off" ? "on" : isVegan === "on" ? "notVegan" : "off"
+              );
+            }}
+          />
+
           <div className="cards">
             {search.map((food, i) => {
               return (
