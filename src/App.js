@@ -20,7 +20,7 @@ function App() {
   const [data, setData] = useState([]);
   const [food, setFood] = useState(initalFood);
   const [isEdit, setEdit] = useState(false);
-  const [selectedCategories, setCategories] = useState([]);
+  const [startCategory, setCategory] = useState("");
 
   const getData = async () => {
     spinnerRef.current.classList.remove("hidden");
@@ -75,12 +75,15 @@ function App() {
       spinnerRef.current.classList.add("hidden");
     }
   };
+  const onSelect = (name) => {
+    setCategory(name);
+  };
   return (
     <div className="app-root">
       <Router history={History}>
         <Navbar />
         <Route path="/" exact>
-          <HomePage />
+          <HomePage onSelect={onSelect} />
         </Route>
         <Route path="/products" exact>
           <Products
@@ -88,6 +91,7 @@ function App() {
             setFood={setFood}
             deleteFood={deleteFood}
             setEdit={setEdit}
+            category={startCategory}
           />
         </Route>
         <div className="spinner hidden" ref={spinnerRef}>

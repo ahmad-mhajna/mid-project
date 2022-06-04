@@ -16,13 +16,18 @@ const categories = [
   "Fried Chicken",
   "Seafood",
   "Asian",
+  "Vegan",
 ];
-function HomePage() {
+function HomePage({ onSelect }) {
   return (
     <div className="home-cards">
       {categories.map((category) => {
         return (
-          <HomeCard name={category} className={category.replace(" ", "")} />
+          <HomeCard
+            name={category}
+            className={category.replace(" ", "")}
+            onClick={onSelect}
+          />
         );
       })}
     </div>

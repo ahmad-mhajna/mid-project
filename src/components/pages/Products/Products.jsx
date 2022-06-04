@@ -5,21 +5,49 @@ import {} from "react-router-dom";
 import Button from "../../Button/Button";
 import Input from "../../input/Input";
 import Card from "../../Card/Card";
-function Products({ data, deleteFood, setFood, setEdit }) {
+import Select from "react-select";
+function Products({ data, deleteFood, setFood, setEdit, category }) {
   const spinnerRef = useRef();
   const [search, filterFood] = useState(data);
   const [sort, setsort] = useState("off");
-  const [isVegan, setvegan] = useState("off");
   const [keywords, setKeywords] = useState("");
+  const [selectedCategories, setCategories] = useState([category]);
+  const categories = [
+    "Burger",
+    "Sweets",
+    "Icecream",
+    "Sandwiches",
+    "BBQ",
+    "Bakery",
+    "Pizza",
+    "Italian",
+    "Shawarma",
+    "Drinks",
+    "Hummus Falafel",
+    "Fried Chicken",
+    "Seafood",
+    "Asian",
+    "Vegan",
+  ];
+  const filterBYCategory = (array) => {
+    if (selectedCategories.length < 1) {
+      return array;
+    }
+    return array.filter((item) =>
+      item.categories
+        .map((category) => selectedCategories.includes(category))
+        .includes(true)
+    );
+  };
 
   useEffect(() => {
     let newArray = [...data];
+    newArray = filterBYCategory(newArray);
     newArray = sortByPrice(newArray);
-    newArray = isItVegan(newArray);
     newArray = newArray.filter((food) => food.name.includes(keywords));
     filterFood(newArray);
     // eslint-disable-next-line
-  }, [sort, isVegan, keywords, data]);
+  }, [sort, selectedCategories, keywords, data]);
   const searchbar = (event) => {
     const input = event.target.value;
     setKeywords(input);
@@ -35,19 +63,29 @@ function Products({ data, deleteFood, setFood, setEdit }) {
     }
     return newarray;
   };
-  const isItVegan = (arr) => {
-    let newarray = [];
-    if (isVegan === "notVegan") {
-      newarray = arr.filter((food) => !food.isVegan);
-    } else if (isVegan === "on") {
-      newarray = arr.filter((food) => food.isVegan);
-    } else if (isVegan === "off") {
-      return arr;
-    }
-    return newarray;
-  };
+  const options = categories.map((category) => ({
+    value: category,
+    label: category,
+  }));
+
   return (
     <div className="app-root">
+      <Select
+        className="select"
+        value={selectedCategories.map((category) => ({
+          value: category,
+          label: category,
+        }))}
+        options={options}
+        isMulti
+        onChange={(value) => {
+          setCategories(
+            value.map((value) => {
+              return value.label;
+            })
+          );
+        }}
+      />
       <Link to="/form">Add Food</Link>
       <Input label="search" onChange={searchbar} />
       <Button
@@ -65,20 +103,6 @@ function Products({ data, deleteFood, setFood, setEdit }) {
               : sort === "low-high"
               ? "high-low"
               : "off"
-          );
-        }}
-      />
-      <Button
-        text={
-          isVegan === "off"
-            ? "all"
-            : isVegan === "on"
-            ? "vegan : yes"
-            : "vegan : not"
-        }
-        onClick={() => {
-          setvegan(
-            isVegan === "off" ? "on" : isVegan === "on" ? "notVegan" : "off"
           );
         }}
       />

@@ -6,20 +6,21 @@ import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import "./Form.css";
 const categories = [
-  { label: "Burger", value: "Burger" },
-  { label: "Sweets", value: "Sweets" },
-  { label: "Icecream", value: "Icecream" },
-  { label: "Sandwiches", value: "Sandwiches" },
-  { label: "BBQ", value: "BBQ" },
-  { label: "Bakery", value: "Bakery" },
-  { label: "Pizza", value: "Pizza" },
-  { label: "Italian", value: "Italian" },
-  { label: "Shawarma", value: "Shawarma" },
-  { label: "Drinks", value: "Drinks" },
-  { label: "Hummus Falafel", value: "Hummus Falafel" },
-  { label: "Fried Chicken", value: "Fried Chicken" },
-  { label: "Seafood", value: "Seafood" },
-  { label: "Asian", value: "Asian" },
+  "Burger",
+  "Sweets",
+  "Icecream",
+  "Sandwiches",
+  "BBQ",
+  "Bakery",
+  "Pizza",
+  "Italian",
+  "Shawarma",
+  "Drinks",
+  "Hummus Falafel",
+  "Fried Chicken",
+  "Seafood",
+  "Asian",
+  "Vegan",
 ];
 class Form extends React.Component {
   state = { inputValue: "" };
@@ -37,19 +38,7 @@ class Form extends React.Component {
             });
           }}
         />
-        <Input
-          type="checkbox"
-          label="isVegan"
-          placeholder="Enter is it vegan"
-          value={this.props.food.isVegan}
-          onChange={(event) => {
-            this.props.setFood({
-              ...this.props.food,
-              isVegan: event.target.checked,
-            });
-          }}
-          required={false}
-        />
+
         <CreatableSelect
           components={{ DropdownIndicator: null }}
           isClearable
@@ -60,7 +49,10 @@ class Form extends React.Component {
             this.setState({ inputValue });
           }}
           onChange={(value) => {
-            this.props.setFood({ ...this.props.food, ingredients: value });
+            this.props.setFood({
+              ...this.props.food,
+              ingredients: value.map((value) => value.label),
+            });
           }}
           onKeyDown={(event) => {
             if (!this.state.inputValue) return;
@@ -69,10 +61,7 @@ class Form extends React.Component {
                 ...this.props.food,
                 ingredients: [
                   ...this.props.food.ingredients,
-                  {
-                    label: this.state.inputValue,
-                    value: this.state.inputValue,
-                  },
+                  this.state.inputValue,
                 ],
               });
               this.setState({
@@ -82,7 +71,10 @@ class Form extends React.Component {
               event.stopPropagation();
             }
           }}
-          value={this.props.food.ingredients}
+          value={this.props.food.ingredients.map((ingredient) => ({
+            label: ingredient,
+            value: ingredient,
+          }))}
         />
         <Input
           label="img"
@@ -108,12 +100,21 @@ class Form extends React.Component {
           }}
         />
         <Select
-          options={categories}
+          options={categories.map((category) => ({
+            label: category,
+            value: category,
+          }))}
           isMulti
           onChange={(value) => {
-            this.props.setFood({ ...this.props.food, categories: value });
+            this.props.setFood({
+              ...this.props.food,
+              categories: value.map((value) => value.label),
+            });
           }}
-          value={this.props.food.categories}
+          value={this.props.food.categories.map((category) => ({
+            label: category,
+            value: category,
+          }))}
         />
         <Button type="submit" text={this.props.isEdit ? "Edit" : "Add"} />
         <Link to="/products">Back</Link>

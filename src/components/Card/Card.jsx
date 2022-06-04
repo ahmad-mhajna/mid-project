@@ -12,11 +12,8 @@ class Card extends React.Component {
           alt="img of food"
         />
         <p className="card-text">{this.props.food.name}</p>
-        <p className="card-text">
-          {this.props.food.isVegan ? "is Vegan" : "isn't Vegan"}
-        </p>
         {this.props.food.ingredients.map((ingredient) => (
-          <p className="card-text">{ingredient.label},</p>
+          <p className="card-text">{ingredient},</p>
         ))}
         <p className="card-text">{this.props.food.price}</p>
         <Link

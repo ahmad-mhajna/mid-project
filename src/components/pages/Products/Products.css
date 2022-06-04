@@ -9,7 +9,9 @@
   gap: 0.5rem;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
-
+.select {
+  z-index: 2;
+}
 button {
   border: 2px solid gray;
   background-color: white;
