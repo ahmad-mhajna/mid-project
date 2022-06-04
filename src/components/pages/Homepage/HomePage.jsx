@@ -1,4 +1,5 @@
 import HomeCard from "./Card/HomeCard";
+import "./HomePage.css";
 
 const categories = [
   "Burger",
@@ -14,7 +15,6 @@ const categories = [
   "Hummus Falafel",
   "Fried Chicken",
   "Seafood",
-  "Shops",
   "Asian",
 ];
 function HomePage() {
