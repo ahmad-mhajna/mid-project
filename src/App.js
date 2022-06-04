@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Form from "./components/Form/Form";
 import Products from "./components/pages/Products/Products";
 import Navbar from "./components/Navbar/Navbar";
+import Checkout from "./components/pages/checkout/checkout";
 function App() {
   const initalFood = {
     name: "",
@@ -96,7 +97,9 @@ function App() {
             category={startCategory}
           />
         </Route>
-        <Route path="/Checkout"></Route>
+        <Route path="/Checkout">
+          <Checkout cart={cart} />
+        </Route>
         <div className="spinner hidden" ref={spinnerRef}>
           <div className="loader">Loading...</div>
         </div>

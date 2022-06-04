@@ -1,20 +1,22 @@
-import React from "react";
-import "./HomeCard.css";
-import { Link } from "react-router-dom";
-class Checkout extends React.Component {
-  render() {
-    return (
-      <Link
-        to="/products"
-        onClick={() => {
-          this.props.onClick(this.props.name);
-        }}
-      >
-        <div className={`home-card ${this.props.className}`}>
-          <p className="card-text">{this.props.name}</p>
-        </div>
-      </Link>
-    );
-  }
+import React, { useEffect } from "react";
+import Button from "../../Button/Button";
+import CheckoutCard from "./Checkout-Card/CheckoutCard";
+
+function Checkout({ cart }) {
+  let sum = 0;
+  cart.map((item) => {
+    sum += item.price * item.quantity;
+  });
+  return (
+    <div>
+      {cart.map((food, i) => {
+        return <CheckoutCard food={food} key={i} />;
+      })}
+      <div>
+        {sum}
+        <Button text="pay" />
+      </div>
+    </div>
+  );
 }
 export default Checkout;
