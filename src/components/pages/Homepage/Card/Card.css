@@ -1,0 +1,15 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 2px solid black;
+	background-color: #ccc;
+	color: black;
+}
+.card-poster,
+.card p {
+	margin: 0.5rem;
+}
+.card-poster {
+	width: 250px;
+}

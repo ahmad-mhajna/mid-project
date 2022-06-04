@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 class Card extends React.Component {
   render() {
     return (
-      <div className="card">
+      <div className={`card ${this.props.className}`}>
         <img
           className="card-text"
           src={this.props.food.img}

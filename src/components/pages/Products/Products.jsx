@@ -1,15 +1,13 @@
-import "./style.css";
-import HomePage from "./components/pages/Homepage/HomePage";
-import Card from "./components/Card/Card";
+import "./Products.css";
 import { Route, Link, useHistory, Router } from "react-router-dom";
-import apiInstance from "./api/api";
+import apiInstance from "../../../api/api";
 import { useEffect, useRef, useState } from "react";
-import Form from "./components/Form/Form";
 import {} from "react-router-dom";
-import Input from "./components/input/Input";
-import Button from "./components/Button/Button";
-import Products from "./components/pages/Products/Products";
-function App() {
+import Button from "../../Button/Button";
+import Input from "../../input/Input";
+import Card from "../../Card/Card";
+import Form from "../../Form/Form";
+function Products() {
   const initalFood = {
     name: "",
     isVegan: false,
@@ -115,19 +113,57 @@ function App() {
   };
   return (
     <div className="app-root">
-      <Router history={History}>
-        <Route path="/" exact>
-          <HomePage />
-        </Route>
-        <Route path="/products" exact>
-          <Products />
-        </Route>
-        <div className="spinner hidden" ref={spinnerRef}>
-          <div className="loader">Loading...</div>
-        </div>
-      </Router>
+      <Link to="/form">Add Food</Link>
+      <Input label="search" onChange={searchbar} />
+      <Button
+        text={
+          sort === "off"
+            ? "sort : off"
+            : sort === "low-high"
+            ? "sort : low-high"
+            : "sort : high-low"
+        }
+        onClick={() => {
+          setsort(
+            sort === "off"
+              ? "low-high"
+              : sort === "low-high"
+              ? "high-low"
+              : "off"
+          );
+        }}
+      />
+      <Button
+        text={
+          isVegan === "off" ? "off" : isVegan === "on" ? "vegan Food" : "all"
+        }
+        onClick={() => {
+          setvegan(
+            isVegan === "off" ? "on" : isVegan === "on" ? "notVegan" : "off"
+          );
+        }}
+      />
+
+      <div className="cards">
+        {search.map((food, i) => {
+          return (
+            <Card
+              food={food}
+              key={i}
+              deleteFood={deleteFood}
+              editFood={(food) => {
+                setFood(food);
+                setEdit(true);
+              }}
+            />
+          );
+        })}
+      </div>
+      <div className="spinner hidden" ref={spinnerRef}>
+        <div className="loader">Loading...</div>
+      </div>
     </div>
   );
 }
 
-export default App;
+export default Products;
