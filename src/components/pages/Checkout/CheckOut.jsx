@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
 import Button from "../../Button/Button";
 import CheckoutCard from "./Checkout-Card/CheckoutCard";
 
-function Checkout({ cart }) {
+function Checkout({ cart, addToCart }) {
   let sum = 0;
   cart.map((item) => {
     sum += item.price * item.quantity;
@@ -10,7 +9,9 @@ function Checkout({ cart }) {
   return (
     <div>
       {cart.map((food, i) => {
-        return <CheckoutCard food={food} key={i} />;
+        return (
+          <CheckoutCard addToCart={addToCart} cart={cart} food={food} key={i} />
+        );
       })}
       <div>
         {sum}

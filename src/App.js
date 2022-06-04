@@ -65,7 +65,6 @@ function App() {
       spinnerRef.current.classList.add("hidden");
     }
   };
-
   const deleteFood = async (event) => {
     spinnerRef.current.classList.remove("hidden");
     try {
@@ -98,7 +97,7 @@ function App() {
           />
         </Route>
         <Route path="/Checkout">
-          <Checkout cart={cart} />
+          <Checkout cart={cart} addToCart={addToCart} />
         </Route>
         <div className="spinner hidden" ref={spinnerRef}>
           <div className="loader">Loading...</div>
