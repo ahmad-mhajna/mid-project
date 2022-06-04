@@ -6,12 +6,18 @@ import Button from "../../Button/Button";
 import Input from "../../input/Input";
 import Card from "../../Card/Card";
 import Select from "react-select";
-function Products({ data, deleteFood, setFood, setEdit, category }) {
+function Products({ data, deleteFood, setFood, setEdit, category, addToCart }) {
   const spinnerRef = useRef();
   const [search, filterFood] = useState(data);
   const [sort, setsort] = useState("off");
   const [keywords, setKeywords] = useState("");
-  const [selectedCategories, setCategories] = useState([category]);
+  const [selectedCategories, setCategories] = useState([]);
+  useEffect(() => {
+    if (category !== "") {
+      setCategories([category]);
+    }
+  }, []);
+
   const categories = [
     "Burger",
     "Sweets",
@@ -113,6 +119,7 @@ function Products({ data, deleteFood, setFood, setEdit, category }) {
             <Card
               food={food}
               key={i}
+              addToCart={addToCart}
               deleteFood={deleteFood}
               editFood={(food) => {
                 setFood(food);

@@ -14,6 +14,7 @@ function App() {
     price: 0,
     img: "",
     categories: [],
+    quantity: 1,
   };
   let History = useHistory();
   const spinnerRef = useRef();
@@ -21,6 +22,7 @@ function App() {
   const [food, setFood] = useState(initalFood);
   const [isEdit, setEdit] = useState(false);
   const [startCategory, setCategory] = useState("");
+  const [cart, addToCart] = useState([]);
 
   const getData = async () => {
     spinnerRef.current.classList.remove("hidden");
@@ -36,7 +38,6 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
-
   const editFood = async () => {
     spinnerRef.current.classList.remove("hidden");
     try {
@@ -91,9 +92,11 @@ function App() {
             setFood={setFood}
             deleteFood={deleteFood}
             setEdit={setEdit}
+            addToCart={addToCart}
             category={startCategory}
           />
         </Route>
+        <Route path="/Checkout"></Route>
         <div className="spinner hidden" ref={spinnerRef}>
           <div className="loader">Loading...</div>
         </div>

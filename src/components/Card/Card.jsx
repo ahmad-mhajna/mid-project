@@ -25,6 +25,23 @@ class Card extends React.Component {
           Edit
         </Link>
         <Button
+          text="add to Cart"
+          onClick={() => {
+            this.props.addToCart((prevState) => {
+              if (!prevState.find((item) => item.id === this.props.food.id))
+                return [...prevState, this.props.food];
+              else {
+                const stateCopy = [...prevState];
+                const foodCopy = stateCopy.find(
+                  (item) => item.id === this.props.food.id
+                );
+                foodCopy.quantity++;
+                return stateCopy;
+              }
+            });
+          }}
+        />
+        <Button
           text="Delete"
           onClick={this.props.deleteFood}
           id={this.props.food.id}
