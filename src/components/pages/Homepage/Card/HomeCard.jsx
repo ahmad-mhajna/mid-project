@@ -5,7 +5,7 @@ class HomeCard extends React.Component {
   render() {
     return (
       <Link to="/products">
-        <div className={`card ${this.props.className}`}>
+        <div className={`home-card ${this.props.className}`}>
           <p className="card-text">{this.props.name}</p>
         </div>
       </Link>

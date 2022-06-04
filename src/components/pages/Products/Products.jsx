@@ -1,79 +1,25 @@
 import "./Products.css";
-import { Route, Link, useHistory, Router } from "react-router-dom";
-import apiInstance from "../../../api/api";
+import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import {} from "react-router-dom";
 import Button from "../../Button/Button";
 import Input from "../../input/Input";
 import Card from "../../Card/Card";
-import Form from "../../Form/Form";
-function Products() {
-  const initalFood = {
-    name: "",
-    isVegan: false,
-    ingredients: [],
-    price: 0,
-    img: "",
-  };
-  let History = useHistory();
+function Products({ data, deleteFood, setFood, setEdit }) {
   const spinnerRef = useRef();
-  const [data, setData] = useState([]);
-  const [food, setFood] = useState(initalFood);
   const [search, filterFood] = useState(data);
-  const [isEdit, setEdit] = useState(false);
   const [sort, setsort] = useState("off");
   const [isVegan, setvegan] = useState("off");
   const [keywords, setKeywords] = useState("");
 
-  const getData = async () => {
-    spinnerRef.current.classList.remove("hidden");
-    try {
-      const response = await apiInstance.get("");
-      setData(response.data);
-      filterFood(response.data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      spinnerRef.current.classList.add("hidden");
-    }
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const editFood = async () => {
-    spinnerRef.current.classList.remove("hidden");
-    try {
-      await apiInstance.put(`/${food.id}`, food);
-      getData();
-      setFood(initalFood);
-      setEdit(false);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      spinnerRef.current.classList.add("hidden");
-    }
-  };
-
-  const addFood = async () => {
-    spinnerRef.current.classList.remove("hidden");
-    try {
-      await apiInstance.post("", food);
-      setFood(initalFood);
-      getData();
-    } catch (e) {
-      console.error(e);
-    } finally {
-      spinnerRef.current.classList.add("hidden");
-    }
-  };
   useEffect(() => {
     let newArray = [...data];
     newArray = sortByPrice(newArray);
     newArray = isItVegan(newArray);
     newArray = newArray.filter((food) => food.name.includes(keywords));
     filterFood(newArray);
-  }, [sort, isVegan, keywords]);
+    // eslint-disable-next-line
+  }, [sort, isVegan, keywords, data]);
   const searchbar = (event) => {
     const input = event.target.value;
     setKeywords(input);
@@ -91,25 +37,14 @@ function Products() {
   };
   const isItVegan = (arr) => {
     let newarray = [];
-    if (isVegan === "off") {
+    if (isVegan === "notVegan") {
       newarray = arr.filter((food) => !food.isVegan);
     } else if (isVegan === "on") {
       newarray = arr.filter((food) => food.isVegan);
-    } else if (isVegan === "notVegan") {
+    } else if (isVegan === "off") {
       return arr;
     }
     return newarray;
-  };
-  const deleteFood = async (event) => {
-    spinnerRef.current.classList.remove("hidden");
-    try {
-      await apiInstance.delete(`/${event.target.getAttribute("data-id")}`);
-      getData();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      spinnerRef.current.classList.add("hidden");
-    }
   };
   return (
     <div className="app-root">
@@ -135,7 +70,11 @@ function Products() {
       />
       <Button
         text={
-          isVegan === "off" ? "off" : isVegan === "on" ? "vegan Food" : "all"
+          isVegan === "off"
+            ? "all"
+            : isVegan === "on"
+            ? "vegan : yes"
+            : "vegan : not"
         }
         onClick={() => {
           setvegan(

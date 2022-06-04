@@ -19,7 +19,7 @@ const categories = [
 ];
 function HomePage() {
   return (
-    <div>
+    <div className="home-cards">
       {categories.map((category) => {
         return (
           <HomeCard name={category} className={category.replace(" ", "")} />

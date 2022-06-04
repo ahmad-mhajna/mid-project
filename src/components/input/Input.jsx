@@ -8,9 +8,10 @@ class Input extends React.Component {
           type={this.props.type}
           onChange={this.props.onChange}
           value={this.props.value}
+          checked={this.props.value}
           name={this.props.label}
           placeholder={this.props.placeholder}
-          required
+          required={this.props.required === undefined ? true : false}
         />
       </div>
     );
