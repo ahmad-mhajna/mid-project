@@ -19,12 +19,11 @@ class CheckoutCard extends React.Component {
           text="Remove"
           onClick={() => {
             this.props.addToCart((prevState) => {
-              prevState = prevState.filter((item) => {
+              return prevState.filter((item) => {
                 if (item.id !== this.props.food.id) {
                   return item;
                 }
               });
-              return prevState;
             });
           }}
         />

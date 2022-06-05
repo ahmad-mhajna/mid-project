@@ -94,6 +94,9 @@ function App() {
             setEdit={setEdit}
             addToCart={addToCart}
             category={startCategory}
+            resetCategory={() => {
+              setCategory("");
+            }}
           />
         </Route>
         <Route path="/Checkout">

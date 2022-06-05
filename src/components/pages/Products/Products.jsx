@@ -6,7 +6,15 @@ import Button from "../../Button/Button";
 import Input from "../../input/Input";
 import Card from "../../Card/Card";
 import Select from "react-select";
-function Products({ data, deleteFood, setFood, setEdit, category, addToCart }) {
+function Products({
+  data,
+  deleteFood,
+  setFood,
+  setEdit,
+  category,
+  addToCart,
+  resetCategory,
+}) {
   const spinnerRef = useRef();
   const [search, filterFood] = useState(data);
   const [sort, setsort] = useState("off");
@@ -52,6 +60,7 @@ function Products({ data, deleteFood, setFood, setEdit, category, addToCart }) {
     newArray = sortByPrice(newArray);
     newArray = newArray.filter((food) => food.name.includes(keywords));
     filterFood(newArray);
+    resetCategory();
     // eslint-disable-next-line
   }, [sort, selectedCategories, keywords, data]);
   const searchbar = (event) => {
