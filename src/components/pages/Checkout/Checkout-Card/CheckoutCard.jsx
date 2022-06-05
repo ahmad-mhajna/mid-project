@@ -24,7 +24,6 @@ class CheckoutCard extends React.Component {
                   return item;
                 }
               });
-              console.log(prevState);
               return prevState;
             });
           }}

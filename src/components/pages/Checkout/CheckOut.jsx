@@ -15,7 +15,12 @@ function Checkout({ cart, addToCart }) {
       })}
       <div>
         {sum}
-        <Button text="pay" />
+        <Button
+          text="pay"
+          onClick={() => {
+            addToCart([]);
+          }}
+        />
       </div>
     </div>
   );
