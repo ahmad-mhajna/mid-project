@@ -11,19 +11,45 @@ class CheckoutCard extends React.Component {
           alt="img of food"
         />
         <p className="card-text">{this.props.food.name}</p>
-        {this.props.food.ingredients.map((ingredient) => (
-          <p className="card-text">{ingredient},</p>
-        ))}
         <p className="card-text">{this.props.food.price}</p>
+        <Button
+          text="+1"
+          onClick={() => {
+            this.props.addToCart((prevState) => {
+              const stateCopy = [...prevState];
+              const foodCopy = stateCopy.find(
+                (item) => item.id === this.props.food.id
+              );
+              foodCopy.quantity++;
+              return stateCopy;
+            });
+          }}
+        />
+        <p className="card-text">{this.props.food.quantity}</p>
+        <Button
+          text="-1"
+          onClick={() => {
+            this.props.addToCart((prevState) => {
+              if (this.props.food.quantity > 1) {
+                const stateCopy = [...prevState];
+                const foodCopy = stateCopy.find(
+                  (item) => item.id === this.props.food.id
+                );
+                foodCopy.quantity--;
+                return stateCopy;
+              } else {
+                return prevState.filter(
+                  (item) => item.id !== this.props.food.id
+                );
+              }
+            });
+          }}
+        />
         <Button
           text="Remove"
           onClick={() => {
             this.props.addToCart((prevState) => {
-              return prevState.filter((item) => {
-                if (item.id !== this.props.food.id) {
-                  return item;
-                }
-              });
+              return prevState.filter((item) => item.id !== this.props.food.id);
             });
           }}
         />
