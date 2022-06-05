@@ -109,7 +109,7 @@ function App() {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              History.push("/products");
+              // History.push("/products");
               if (!isEdit) addFood();
               else editFood();
             }}

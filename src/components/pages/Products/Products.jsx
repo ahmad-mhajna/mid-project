@@ -47,10 +47,11 @@ function Products({
     if (selectedCategories.length < 1) {
       return array;
     }
-    return array.filter((item) =>
-      item.categories
-        .map((category) => selectedCategories.includes(category))
-        .includes(true)
+    return array.filter(
+      (item) =>
+        !selectedCategories
+          .map((category) => item.categories.includes(category))
+          .includes(false)
     );
   };
 

@@ -38,44 +38,6 @@ class Form extends React.Component {
             });
           }}
         />
-
-        <CreatableSelect
-          components={{ DropdownIndicator: null }}
-          isClearable
-          isMulti
-          menuIsOpen={false}
-          inputValue={this.state.inputValue}
-          onInputChange={(inputValue) => {
-            this.setState({ inputValue });
-          }}
-          onChange={(value) => {
-            this.props.setFood({
-              ...this.props.food,
-              ingredients: value.map((value) => value.label),
-            });
-          }}
-          onKeyDown={(event) => {
-            if (!this.state.inputValue) return;
-            if (event.key === "Enter") {
-              this.props.setFood({
-                ...this.props.food,
-                ingredients: [
-                  ...this.props.food.ingredients,
-                  this.state.inputValue,
-                ],
-              });
-              this.setState({
-                inputValue: "",
-              });
-              event.preventDefault();
-              event.stopPropagation();
-            }
-          }}
-          value={this.props.food.ingredients.map((ingredient) => ({
-            label: ingredient,
-            value: ingredient,
-          }))}
-        />
         <Input
           label="img"
           placeholder="Enter img..."
@@ -99,6 +61,7 @@ class Form extends React.Component {
             });
           }}
         />
+        <span>category</span>
         <Select
           options={categories.map((category) => ({
             label: category,
