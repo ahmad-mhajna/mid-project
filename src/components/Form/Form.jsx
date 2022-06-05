@@ -2,7 +2,6 @@ import React from "react";
 import Button from "../Button/Button";
 import Input from "../input/Input";
 import { Link } from "react-router-dom";
-import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import "./Form.css";
 const categories = [
