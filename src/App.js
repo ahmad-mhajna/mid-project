@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Form from "./components/Form/Form";
 import Products from "./components/pages/Products/Products";
 import Navbar from "./components/Navbar/Navbar";
-import Checkout from "./components/pages/checkout/checkout";
+import Checkout from "./components/pages/checkout/Checkout";
 function App() {
   const initalFood = {
     name: "",
