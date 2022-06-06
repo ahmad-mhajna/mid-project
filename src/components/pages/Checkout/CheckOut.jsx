@@ -3,7 +3,7 @@ import CheckoutCard from "./CheckoutCard/CheckoutCard";
 
 function Checkout({ cart, addToCart }) {
   let sum = 0;
-  cart.map((item) => {
+  cart.forEach((item) => {
     sum += item.price * item.quantity;
   });
   return (
