@@ -1,12 +1,14 @@
-import "./style.css";
-import HomePage from "./components/pages/Homepage/HomePage";
-import { Route, useHistory, Router } from "react-router-dom";
-import apiInstance from "./api/api";
 import { useEffect, useRef, useState } from "react";
+import { Route, useHistory, Router } from "react-router-dom";
+
+import apiInstance from "./api/api";
+import Navbar from "./components/Navbar/Navbar";
+import HomePage from "./components/pages/Homepage/HomePage";
+import Checkout from "./components/pages/Checkout/Checkout";
 import Form from "./components/Form/Form";
 import Products from "./components/pages/Products/Products";
-import Navbar from "./components/Navbar/Navbar";
-import Checkout from "./components/pages/checkout/Checkout";
+
+import "./style.css";
 function App() {
   const initalFood = {
     name: "",
