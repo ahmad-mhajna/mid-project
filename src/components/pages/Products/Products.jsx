@@ -24,6 +24,7 @@ function Products({
     if (category !== "") {
       setCategories([category]);
     }
+    // eslint-disable-next-line
   }, []);
 
   const categories = [
