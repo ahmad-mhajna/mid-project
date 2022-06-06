@@ -1,5 +1,5 @@
 import Button from "../../Button/Button";
-import CheckoutCard from "./Checkout-Card/CheckoutCard";
+import CheckoutCard from "./CheckoutCard/CheckoutCard";
 
 function Checkout({ cart, addToCart }) {
   let sum = 0;
