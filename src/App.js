@@ -40,6 +40,7 @@ function App() {
     }
   };
   useEffect(() => {
+    setAdmin(false);
     getData();
   }, []);
   const editFood = async () => {
