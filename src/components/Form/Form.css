@@ -7,11 +7,7 @@ button {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
-a:hover,
-button:hover {
-  color: white;
-  background-color: black;
-}
+
 form {
   display: flex;
   align-items: center;

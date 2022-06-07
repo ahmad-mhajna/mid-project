@@ -88,6 +88,11 @@ function Products({
 
   return (
     <div className="app-root">
+      {admin && (
+        <Link to="/form" className="add-btn">
+          Add Food
+        </Link>
+      )}
       <div className="search-nav">
         <Select
           className="select"
@@ -97,6 +102,7 @@ function Products({
           }))}
           options={options}
           isMulti
+          placeholder="Select Catagories"
           onChange={(value) => {
             setCategories(
               value.map((value) => {
@@ -105,26 +111,27 @@ function Products({
             );
           }}
         />
-        {admin && <Link to="/form">Add Food</Link>}
-        <Input label="search" onChange={searchbar} />
-        <Button
-          text={
-            sort === "off"
-              ? "sort : off"
-              : sort === "low-high"
-              ? "sort : low-high"
-              : "sort : high-low"
-          }
-          onClick={() => {
-            setsort(
+        <Input label="Search" onChange={searchbar} />
+        <div className="btn-container">
+          <Button
+            text={
               sort === "off"
-                ? "low-high"
+                ? "Sort : Off"
                 : sort === "low-high"
-                ? "high-low"
-                : "off"
-            );
-          }}
-        />
+                ? "Sort : Low-High"
+                : "Sort : High-Low"
+            }
+            onClick={() => {
+              setsort(
+                sort === "off"
+                  ? "low-high"
+                  : sort === "low-high"
+                  ? "high-low"
+                  : "off"
+              );
+            }}
+          />
+        </div>
       </div>
       <div className="cards">
         {search.map((food, i) => {

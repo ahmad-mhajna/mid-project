@@ -8,27 +8,33 @@ function Checkout({ cart, addToCart }) {
   });
   return (
     <div className="checkout">
-      <div className="card-container">
-        {cart.map((food, i) => {
-          return (
-            <CheckoutCard
-              addToCart={addToCart}
-              cart={cart}
-              food={food}
-              key={i}
+      {cart.length > 0 && (
+        <>
+          <div className="card-container">
+            {cart.map((food, i) => {
+              return (
+                <CheckoutCard
+                  addToCart={addToCart}
+                  cart={cart}
+                  food={food}
+                  key={i}
+                />
+              );
+            })}
+          </div>
+          <div className="pay">
+            Total : {sum.toFixed(1)}$
+            <Button
+              text="Pay"
+              onClick={() => {
+                addToCart([]);
+              }}
+              className="alt"
             />
-          );
-        })}
-      </div>
-      <div className="pay">
-        total :{sum}
-        <Button
-          text="buy"
-          onClick={() => {
-            addToCart([]);
-          }}
-        />
-      </div>
+          </div>
+        </>
+      )}
+      {cart.length === 0 && "Your Cart is Empty!"}
     </div>
   );
 }

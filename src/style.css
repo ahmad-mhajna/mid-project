@@ -1,7 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap");
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Kdam Thmor Pro", sans-serif;
+  color: var(--secondary-color);
+}
+body {
+  background-color: var(--main-color);
+}
+:root {
+  --main-color: #eee;
+  --secondary-color: #333;
+  --cta-color: #ad9a74;
+  --cta-hover: #846a39;
 }
 .app-root {
   display: flex;
@@ -13,24 +25,6 @@
   display: grid;
   gap: 0.5rem;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
-a {
-  color: unset;
-  text-decoration: none;
-}
-button {
-  border: 2px solid gray;
-  background-color: white;
-  color: unset;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-a:hover,
-button:hover {
-  color: white;
-  background-color: black;
 }
 
 .loader,

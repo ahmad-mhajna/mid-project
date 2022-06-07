@@ -6,28 +6,44 @@ class Card extends React.Component {
   render() {
     return (
       <div className={`card ${this.props.className || ""}`}>
-        <img
-          className="card-text"
-          src={this.props.food.img}
-          alt="img of food"
-        />
+        <div
+          className="img-container"
+          style={{
+            background: `url(${this.props.food.img}) no-repeat center center/cover`,
+          }}
+        ></div>
         <p className="card-text">{this.props.food.name}</p>
-        {this.props.food.categories.map((category) => (
-          <p className="card-text">{category},</p>
-        ))}
-        <p className="card-text">{this.props.food.price}</p>
+        <div className="category-container">
+          {this.props.food.categories.map((category) => (
+            <p className="card-text category">{category},</p>
+          ))}
+        </div>
+        <p className="card-text price">{this.props.food.price}$</p>
         {this.props.admin && (
-          <Link
-            onClick={() => {
-              this.props.editFood(this.props.food);
-            }}
-            to="/form"
-          >
-            Edit
-          </Link>
+          <div className="admin-container">
+            <Link
+              onClick={() => {
+                this.props.editFood(this.props.food);
+              }}
+              to="/form"
+            >
+              <Button
+                text="Edit"
+                id={this.props.food.id}
+                className="cart-btn alt"
+              />
+            </Link>
+            <Button
+              text="Delete"
+              onClick={this.props.deleteFood}
+              id={this.props.food.id}
+              className="cart-btn alt"
+            />
+          </div>
         )}
+
         <Button
-          text="add to Cart"
+          text="Add to Cart"
           onClick={() => {
             this.props.addToCart((prevState) => {
               if (!prevState.find((item) => item.id === this.props.food.id))
@@ -42,14 +58,8 @@ class Card extends React.Component {
               }
             });
           }}
+          className="cart-btn alt"
         />
-        {this.props.admin && (
-          <Button
-            text="Delete"
-            onClick={this.props.deleteFood}
-            id={this.props.food.id}
-          />
-        )}
       </div>
     );
   }

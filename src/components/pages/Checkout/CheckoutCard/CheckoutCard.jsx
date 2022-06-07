@@ -13,7 +13,7 @@ class CheckoutCard extends React.Component {
           alt="img of food"
         />
         <p className="CheckoutCard-text">{this.props.food.name}</p>
-        <p className="CheckoutCard-text">price : {this.props.food.price}</p>
+        <p className="CheckoutCard-text price">{this.props.food.price}$</p>
         <div className="CheckoutCard-text qty">
           <Button
             onClick={() => {
@@ -26,6 +26,7 @@ class CheckoutCard extends React.Component {
                 return stateCopy;
               });
             }}
+            className="alt"
           >
             <FaArrowUp />
           </Button>
@@ -47,6 +48,7 @@ class CheckoutCard extends React.Component {
                 }
               });
             }}
+            className="alt"
           >
             <FaArrowDown />
           </Button>
@@ -58,6 +60,7 @@ class CheckoutCard extends React.Component {
               return prevState.filter((item) => item.id !== this.props.food.id);
             });
           }}
+          className="alt"
         />
       </div>
     );

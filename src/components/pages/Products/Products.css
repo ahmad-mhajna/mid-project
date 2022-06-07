@@ -5,10 +5,31 @@
   width: 100%;
   height: 4rem;
 }
+.search-nav .input-container {
+  flex: 3;
+  display: flex;
+  align-items: center;
+}
+.search-nav .input-container input {
+  width: 100%;
+  height: 2rem;
+}
+.search-nav .select {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.search-nav .btn-container {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .app-root {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 .cards {
   width: 100%;
@@ -28,10 +49,10 @@ button {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
-a:hover,
-button:hover {
-  color: white;
-  background-color: black;
+.add-btn {
+  margin: 1rem 0 0rem;
+  padding: 0.3rem 0.6rem;
+  border: 2px solid var(--secondary-color);
 }
 
 .loader,
