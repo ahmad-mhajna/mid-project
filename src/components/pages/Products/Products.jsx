@@ -14,6 +14,7 @@ function Products({
   category,
   addToCart,
   resetCategory,
+  admin,
 }) {
   const spinnerRef = useRef();
   const [search, filterFood] = useState(data);
@@ -87,43 +88,44 @@ function Products({
 
   return (
     <div className="app-root">
-      <Select
-        className="select"
-        value={selectedCategories.map((category) => ({
-          value: category,
-          label: category,
-        }))}
-        options={options}
-        isMulti
-        onChange={(value) => {
-          setCategories(
-            value.map((value) => {
-              return value.label;
-            })
-          );
-        }}
-      />
-      <Link to="/form">Add Food</Link>
-      <Input label="search" onChange={searchbar} />
-      <Button
-        text={
-          sort === "off"
-            ? "sort : off"
-            : sort === "low-high"
-            ? "sort : low-high"
-            : "sort : high-low"
-        }
-        onClick={() => {
-          setsort(
+      <div className="search-nav">
+        <Select
+          className="select"
+          value={selectedCategories.map((category) => ({
+            value: category,
+            label: category,
+          }))}
+          options={options}
+          isMulti
+          onChange={(value) => {
+            setCategories(
+              value.map((value) => {
+                return value.label;
+              })
+            );
+          }}
+        />
+        {admin && <Link to="/form">Add Food</Link>}
+        <Input label="search" onChange={searchbar} />
+        <Button
+          text={
             sort === "off"
-              ? "low-high"
+              ? "sort : off"
               : sort === "low-high"
-              ? "high-low"
-              : "off"
-          );
-        }}
-      />
-
+              ? "sort : low-high"
+              : "sort : high-low"
+          }
+          onClick={() => {
+            setsort(
+              sort === "off"
+                ? "low-high"
+                : sort === "low-high"
+                ? "high-low"
+                : "off"
+            );
+          }}
+        />
+      </div>
       <div className="cards">
         {search.map((food, i) => {
           return (
@@ -132,6 +134,7 @@ function Products({
               key={i}
               addToCart={addToCart}
               deleteFood={deleteFood}
+              admin={admin}
               editFood={(food) => {
                 setFood(food);
                 setEdit(true);

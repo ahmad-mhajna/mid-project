@@ -24,6 +24,7 @@ function App() {
   const [data, setData] = useState([]);
   const [food, setFood] = useState(initalFood);
   const [isEdit, setEdit] = useState(false);
+  const [admin, setAdmin] = useState(false);
   const [startCategory, setCategory] = useState("");
   const [cart, addToCart] = useState([]);
 
@@ -90,6 +91,7 @@ function App() {
         </Route>
         <Route path="/products" exact>
           <Products
+            admin={admin}
             data={data}
             setFood={setFood}
             deleteFood={deleteFood}
@@ -111,13 +113,14 @@ function App() {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              // History.push("/products");
+              History.push("/products");
               if (!isEdit) addFood();
               else editFood();
             }}
             food={food}
             setFood={setFood}
             isEdit={isEdit}
+            admin={admin}
           />
         </Route>
       </Router>

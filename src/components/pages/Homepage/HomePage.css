@@ -1,3 +1,7 @@
+.home-cards {
+  margin: 2rem;
+  padding: 2rem;
+}
 .Burger {
   background: url(./img/burger.webp) center center/cover;
 }

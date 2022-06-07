@@ -16,14 +16,16 @@ class Card extends React.Component {
           <p className="card-text">{category},</p>
         ))}
         <p className="card-text">{this.props.food.price}</p>
-        <Link
-          onClick={() => {
-            this.props.editFood(this.props.food);
-          }}
-          to="/form"
-        >
-          Edit
-        </Link>
+        {this.props.admin && (
+          <Link
+            onClick={() => {
+              this.props.editFood(this.props.food);
+            }}
+            to="/form"
+          >
+            Edit
+          </Link>
+        )}
         <Button
           text="add to Cart"
           onClick={() => {
@@ -41,11 +43,13 @@ class Card extends React.Component {
             });
           }}
         />
-        <Button
-          text="Delete"
-          onClick={this.props.deleteFood}
-          id={this.props.food.id}
-        />
+        {this.props.admin && (
+          <Button
+            text="Delete"
+            onClick={this.props.deleteFood}
+            id={this.props.food.id}
+          />
+        )}
       </div>
     );
   }

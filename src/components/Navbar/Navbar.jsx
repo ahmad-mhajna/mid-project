@@ -5,7 +5,8 @@ function Navbar({ currentPage }) {
     <nav>
       {currentPage !== "checkout" && <Link to="/checkout">Checkout</Link>}
       {currentPage !== "homepage" && <Link to="/">homepage</Link>}
-      {currentPage !== "search" && <Link to="/products">search</Link>}
+      {currentPage !== "login" && <Link to="/products">products</Link>}
+      {currentPage !== "login" && <Link to="/login">login</Link>}
     </nav>
   );
 }
