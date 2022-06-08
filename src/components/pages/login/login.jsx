@@ -3,7 +3,7 @@ import { apiInstance2 } from "../../../api/api";
 import "./login.css";
 import Button from "../../Button/Button";
 import Input from "../../input/Input";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 function Login({ setUser }) {
   const initaluser = {
