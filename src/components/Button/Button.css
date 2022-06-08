@@ -39,6 +39,7 @@ path {
 button.alt path {
   color: var(--cta-color);
 }
+button.alt:hover,
 button.alt:hover path {
   background-color: var(--cta-color);
   color: var(--secondary-color);

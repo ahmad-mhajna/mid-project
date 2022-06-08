@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Route, useHistory, Router } from "react-router-dom";
 
-import apiInstance from "./api/api";
+import { apiInstance, apiInstance2 } from "./api/api";
 import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./components/pages/Homepage/HomePage";
 import Checkout from "./components/pages/Checkout/Checkout";
@@ -9,6 +9,7 @@ import Form from "./components/Form/Form";
 import Products from "./components/pages/Products/Products";
 
 import "./style.css";
+import Login from "./components/pages/login/login";
 function App() {
   const initalFood = {
     name: "",
@@ -25,6 +26,8 @@ function App() {
   const [food, setFood] = useState(initalFood);
   const [isEdit, setEdit] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [islogin, setlogin] = useState(true);
+  const [user, setUser] = useState([]);
   const [startCategory, setCategory] = useState("");
   const [cart, addToCart] = useState([]);
 
@@ -39,10 +42,31 @@ function App() {
       spinnerRef.current.classList.add("hidden");
     }
   };
+  const updateUser = async () => {
+    spinnerRef.current.classList.remove("hidden");
+    try {
+      await apiInstance2.put(`/${user.id}`, { ...user, cart });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      spinnerRef.current.classList.add("hidden");
+    }
+  };
   useEffect(() => {
     setAdmin(false);
     getData();
   }, []);
+  useEffect(() => {
+    if (islogin) updateUser();
+    // eslint-disable-next-line
+  }, [cart]);
+  useEffect(() => {
+    setlogin(user.username !== undefined);
+    if (user.username !== undefined) {
+      setAdmin(user.ISadmin);
+      addToCart((prevState) => [...prevState, ...user.cart]);
+    } else setAdmin(false);
+  }, [user]);
   const editFood = async () => {
     spinnerRef.current.classList.remove("hidden");
     try {
@@ -86,9 +110,12 @@ function App() {
   return (
     <div className="app-root">
       <Router history={History}>
-        <Navbar />
+        <Navbar isLogin={islogin} user={user} setUser={setUser} />
         <Route path="/" exact>
           <HomePage onSelect={onSelect} />
+        </Route>
+        <Route path="/login">
+          <Login setUser={setUser} />
         </Route>
         <Route path="/products" exact>
           <Products
