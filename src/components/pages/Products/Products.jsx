@@ -61,14 +61,16 @@ function Products({
     let newArray = [...data];
     newArray = filterBYCategory(newArray);
     newArray = sortByPrice(newArray);
-    newArray = newArray.filter((food) => food.name.includes(keywords));
+    newArray = newArray.filter((food) =>
+      food.name.toLowerCase().includes(keywords)
+    );
     filterFood(newArray);
     resetCategory();
     // eslint-disable-next-line
   }, [sort, selectedCategories, keywords, data]);
   const searchbar = (event) => {
     const input = event.target.value;
-    setKeywords(input);
+    setKeywords(input.toLowerCase());
   };
   const sortByPrice = (arr) => {
     let newarray = [...arr];
